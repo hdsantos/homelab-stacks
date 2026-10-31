@@ -25,6 +25,8 @@ services:
       - ./gai.conf:/etc/gai.conf:ro
 volumes:
   unifi-db:
+    name: unifi-db
     driver: local
   unifi-run:
+    name: unifi-run
     driver: local
