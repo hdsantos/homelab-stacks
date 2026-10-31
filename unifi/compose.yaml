@@ -19,14 +19,14 @@ services:
     volumes:
       # Config + backups continuam no ZFS (redundância)
       - /mnt/zfs_data/docker_volumes/unifi:/unifi
-      # DB e run TÊM de ser local - senão o WiredTiger crasha no ZFS
-      - unifi-db:/unifi/data/db
-      - unifi-run:/unifi/run
       - /mnt/zfs_data/docker_volumes/unifi/gai.conf:/etc/gai.conf:ro
-volumes:
-  unifi-db:
-    name: unifi-db
-    driver: local
-  unifi-run:
-    name: unifi-run
-    driver: local
+      # DB e run TÊM de ser local - senão o WiredTiger crasha no ZFS
+      #- unifi-db:/unifi/data/db
+      #- unifi-run:/unifi/run
+#volumes:
+#  unifi-db:
+#    name: unifi-db
+#    driver: local
+#  unifi-run:
+#    name: unifi-run
+#    driver: local
