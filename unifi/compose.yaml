@@ -22,7 +22,7 @@ services:
       # DB e run TÊM de ser local - senão o WiredTiger crasha no ZFS
       - unifi-db:/unifi/data/db
       - unifi-run:/unifi/run
-      #- ./gai.conf:/etc/gai.conf:ro
+      - /mnt/zfs_data/docker_volumes/unifi/gai.conf:/etc/gai.conf:ro
 volumes:
   unifi-db:
     name: unifi-db
