@@ -1,0 +1,19 @@
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    user: 1000:1000 # O teu PUID:PGID (hsantos)
+    network_mode: host
+    group_add:
+      - "993"  # Confirmado com 'getent group render' na VM
+      - "44"   # ID comum para o grupo 'video', por precaução
+    volumes:
+      - /mnt/zfs_data/docker_volumes/jellyfin_config:/config
+      - /mnt/zfs_data/docker_volumes/jellyfin_transcode:/transcode
+      - /mnt/truenas_media/Filmes:/data/movies
+      - /mnt/truenas_media/Series:/data/tv
+      - /mnt/truenas_media/Musicas:/data/music
+      - /mnt/truenas_media/Fotografias:/data/photos
+    devices:
+      - /dev/dri:/dev/dri # ACELERAÇÃO DE HARDWARE (Essencial!)
+    restart: unless-stopped

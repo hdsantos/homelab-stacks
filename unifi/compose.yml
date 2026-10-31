@@ -1,0 +1,25 @@
+services:
+  unifi:
+    image: jacobalberty/unifi:v10
+    container_name: unifi
+    restart: unless-stopped
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+      - 192.168.1.1
+    environment:
+      - UNIFI_JVM_EXTRA_OPTS=-Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Addresses=true
+      - JAVA_TOOL_OPTIONS=-Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Addresses=true
+      - JVM_EXTRA_OPTS=-Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Addresses=true
+    ports:
+      - 8080:8080
+      - 8443:8443
+      - 3478:3478/udp
+      - 10001:10001/udp
+    volumes:
+      # Config + backups continuam no ZFS (redundância)
+      - /mnt/zfs_data/docker_volumes/unifi:/unifi
+      # DB e run TÊM de ser local - senão o WiredTiger crasha no ZFS
+      - unifi-db:/unifi/data/db
+      - unifi-run:/unifi/run
+      - ./gai.conf:/etc/gai.conf:ro

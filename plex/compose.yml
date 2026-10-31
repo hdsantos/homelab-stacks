@@ -1,0 +1,21 @@
+services:
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    network_mode: host
+    environment:
+      - PUID=1000 # Substitui pelo ID do utilizador 'hsantos' (vê com o comando 'id')
+      - PGID=1000 # Substitui pelo GID do utilizador 'hsantos'
+      - VERSION=docker
+      - TZ=Europe/Lisbon
+    volumes:
+      # Configurações e base de dados no disco ZFS de 1TB
+      - /mnt/zfs_data/docker_volumes/plex_config:/config
+      # Bibliotecas de Media no RAID-Z1 do TrueNAS (via NFS)
+      - /mnt/truenas_media/Filmes:/movies:ro
+      - /mnt/truenas_media/Series:/tv:ro
+      - /mnt/truenas_media/Musicas:/music:ro
+      - /mnt/truenas_media/Fotografias:/photos:ro
+    devices:
+      - /dev/dri:/dev/dri # ACELERAÇÃO DE HARDWARE (Essencial!)
+    restart: unless-stopped
