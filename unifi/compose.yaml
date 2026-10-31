@@ -23,3 +23,8 @@ services:
       - unifi-db:/unifi/data/db
       - unifi-run:/unifi/run
       - ./gai.conf:/etc/gai.conf:ro
+volumes:
+  unifi-db:
+    driver: local
+  unifi-run:
+    driver: local
