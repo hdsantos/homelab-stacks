@@ -18,4 +18,7 @@ services:
       - /mnt/truenas_media/Fotografias:/photos:ro
     devices:
       - /dev/dri:/dev/dri # ACELERAÇÃO DE HARDWARE (Essencial!)
+    group_add:
+      - "993"    # GID do render na VM - confirmar com getent group render
+      - "44"     # GID do video - confirmar com getent 
     restart: unless-stopped
